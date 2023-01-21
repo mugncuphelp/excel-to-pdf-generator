@@ -45,4 +45,22 @@ for filepath in filepaths:
         pdf.cell(w=30, h=8, txt=str(row['price_per_unit']), border=1)
         pdf.cell(w=30, h=8, txt=str(row['total_price']), border=1, ln=1)
 
+    #  add total price
+    total_price = df['total_price'].sum(axis=0)
+    pdf.cell(w=30, h=8, txt='', border=1)
+    pdf.cell(w=70, h=8, txt='', border=1)
+    pdf.cell(w=30, h=8, txt='', border=1)
+    pdf.cell(w=30, h=8, txt='', border=1)
+    pdf.cell(w=30, h=8, txt=str(total_price), border=1, ln=1)
+    pdf.cell(w=30, h=8, txt='', ln=1)
+
+    # add total sum sentence
+    pdf.set_font(family='Times', size=25, style='B')
+    pdf.cell(w=0, h=8, txt=f'The total price is {total_price}', ln=1)
+
+    # add company name and logo
+    pdf.set_font(family='Times', size=12, style='B')
+    pdf.cell(w=25, h=8, txt=f'PythonHow')
+    pdf.image('pythonhow.png', w=10)
+
     pdf.output(f'invoices_pdf\\{file_name_and_date[0]}.pdf')
