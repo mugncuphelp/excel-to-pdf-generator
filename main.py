@@ -17,7 +17,9 @@ for filepath in filepaths:
     pdf.add_page()
 
     pdf.set_font(family='Times', style='B', size=16)
-    pdf.cell(w=50, h=16, txt=f'Invoice mr. {file_name_and_date[0]}', ln=0)
-    pdf.cell(w=50, h=16, txt=f'Date {file_name_and_date[1]}', ln=1)
+    pdf.cell(w=50, h=8, txt=f'Invoice mr. {file_name_and_date[0]}', ln=1)
+
+    pdf.set_font(family='Times', style='B', size=16)
+    pdf.cell(w=50, h=8, txt=f'Date {file_name_and_date[1]}')
 
     pdf.output(f'invoices_pdf\\{file_name_and_date[0]}.pdf')
