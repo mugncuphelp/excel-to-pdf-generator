@@ -1,8 +1,23 @@
 import pandas as pd
 import glob
+from fpdf import FPDF
+import os
 
-filepaths = glob.glob('invoices\*.xlsx')
+filepaths = glob.glob('invoices\\*.xlsx')
 
 for filepath in filepaths:
-    df= pd.read_excel(filepath, sheet_name='Sheet 1')
-    print(df)
+    file_name_and_date = os.path.basename(filepath)[:-5].split('-')
+    print()
+    if '~$' in filepath:
+        continue
+    else:
+        df= pd.read_excel(filepath, sheet_name='Sheet 1', engine='openpyxl')
+    
+    pdf = FPDF(orientation='P', format='A4', unit='mm')
+    pdf.add_page()
+
+    pdf.set_font(family='Times', style='B', size=16)
+    pdf.cell(w=50, h=16, txt=f'Invoice mr. {file_name_and_date[0]}', ln=0)
+    pdf.cell(w=50, h=16, txt=f'Date {file_name_and_date[1]}', ln=1)
+
+    pdf.output(f'invoices_pdf\\{file_name_and_date[0]}.pdf')
